@@ -4,7 +4,7 @@ const questions = [
     { question: "ما هو شهر الصيام؟", choices: ["محرم", "رمضان", "رجب", "شعبان"], answer: "رمضان" },
     { question: "كم عدد الأيام في الحج؟", choices: ["5 أيام", "10 أيام", "6 أيام", "7 أيام"], answer: "5 أيام" },
     { question: "ما هو الكتاب المقدس في الإسلام؟", choices: ["التوراة", "الإنجيل", "الزبور", "القرآن"], answer: "القرآن" }
-    // يمكنك إضافة المزيد من الأسئلة هنا وتجنب الأسئلة غير اللائقة
+
 ];
 
 let currentQuestionIndex = 0;
@@ -20,7 +20,6 @@ function startQuiz() {
 }
 
 function loadQuestion() {
-    // اختيار سؤال عشوائي وتجنب التكرار
     if (usedQuestions.length === questions.length) {
         document.getElementById('question').textContent = "لقد أتممت جميع الأسئلة!";
         return;
@@ -40,12 +39,12 @@ function loadQuestion() {
 
 function loadChoices(choices, correctAnswer) {
     const choicesContainer = document.getElementById('choices');
-    choicesContainer.innerHTML = ""; // مسح الاختيارات السابقة
+    choicesContainer.innerHTML = "";
 
     choices.forEach(choice => {
         const button = document.createElement('button');
         button.textContent = choice;
-        button.addEventListener('click', () => handleAnswer(choice, correctAnswer, button)); // زر واحد فقط يمكن الضغط عليه
+        button.addEventListener('click', () => handleAnswer(choice, correctAnswer, button)); 
         choicesContainer.appendChild(button);
     });
 }
@@ -53,7 +52,6 @@ function loadChoices(choices, correctAnswer) {
 function handleAnswer(selectedChoice, correctAnswer, button) {
     const buttons = document.querySelectorAll('#choices button');
     
-    // تعطيل جميع الأزرار بعد الضغط
     buttons.forEach(btn => {
         btn.disabled = true;
     });
