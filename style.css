@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+}
+
+#instructions {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+
+#start-quiz-btn {
+    width: 40%; /* جعل الزر بنسبة 40% من عرض الشاشة */
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block; /* عرض الزر كـ block */
+    margin: 0 auto; /* إضافة الـ margin auto لجعل الزر في المنتصف */
+}
+
+.animated-button {
+    border: 2px solid #4CAF50;
+    animation: glowing 1.5s infinite;
+}
+
+@keyframes glowing {
+    0% { border-color: #4CAF50; }
+    50% { border-color: #45a049; }
+    100% { border-color: #4CAF50; }
+}
+
+#quiz-container {
+    text-align: center;
+    width: 100%;
+}
+
+.quiz-box {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    width: 80%; /* علبة الأسئلة تأخذ 80% من عرض الشاشة */
+    margin: 0 auto;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px;
+    text-align: center;
+    display: block;
+    font-size: 16px;
+    margin: 10px auto; /* تعديل لجعل الزر في المنتصف */
+    cursor: pointer;
+    border-radius: 5px;
+    width: 50%; /* جعل الأزرار تأخذ 50% من عرض الشاشة */
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+    border: 2px solid #4CAF50;
+    animation: glowing-box 1s infinite;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* تأثير التحريك عند التحويم */
+}
+
+@keyframes glowing-box {
+    0% { border-color: #4CAF50; }
+    50% { border-color: #45a049; }
+    100% { border-color: #4CAF50; }
+}
+
+#feedback {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#score {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #4CAF50;
+    font-weight: bold;
+}
