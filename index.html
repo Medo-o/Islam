@@ -1,108 +1,77 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحدي الأسئلة الدينية</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>مرحبا بك في تحدي الأسئلة الدينية!</h1>
-        <button id="start-button">ادخل التحدي</button>
-    </div>
+const questions = [
+    { question: "ما هو أول أركان الإسلام؟", choices: ["الصلاة", "الزكاة", "الشهادة", "الصيام"], answer: "الشهادة" },
+    { question: "كم عدد ركعات صلاة الفجر؟", choices: ["اثنتان", "ثلاثة", "أربعة", "خمسة"], answer: "اثنتان" },
+    { question: "ما هو شهر الصيام؟", choices: ["محرم", "رمضان", "رجب", "شعبان"], answer: "رمضان" },
+    { question: "كم عدد الأيام في الحج؟", choices: ["5 أيام", "10 أيام", "6 أيام", "7 أيام"], answer: "5 أيام" },
+    { question: "ما هو الكتاب المقدس في الإسلام؟", choices: ["التوراة", "الإنجيل", "الزبور", "القرآن"], answer: "القرآن" }
+    // يمكنك إضافة المزيد من الأسئلة هنا وتجنب الأسئلة غير اللائقة
+];
 
-    <div id="quiz-container" class="hidden">
-        <div class="quiz-box">
-            <h2 id="question"></h2>
-            <div id="options"></div>
-            <p id="feedback"></p>
-            <p id="score">نقاطك: <span id="score-value">0</span></p>
-        </div>
-    </div>
+let currentQuestionIndex = 0;
+let score = 0;
+let usedQuestions = [];
 
-    <script>
-        const questions = [
-            { question: "ما هو اسم كتاب الله؟", options: ["القرآن", "التوراة", "الإنجيل"], answer: 0 },
-            { question: "من هو النبي الذي بنا الكعبة؟", options: ["إبراهيم", "محمد", "موسى"], answer: 0 },
-            { question: "كم عدد السور في القرآن الكريم؟", options: ["114", "120", "100"], answer: 0 },
-            { question: "ما هو أول بيت وضع للناس؟", options: ["الكعبة", "بيت المقدس", "المدينة"], answer: 0 },
-            { question: "في أي شهر نزل القرآن؟", options: ["رمضان", "شوال", "محرم"], answer: 0 },
-            { question: "ما هو الصيام في شهر رمضان؟", options: ["فريضة", "سنة", "مكروه"], answer: 0 },
-            { question: "كم عدد ركعات صلاة الفجر؟", options: ["2", "4", "3"], answer: 0 },
-            { question: "ما هو اسم الصلاة التي تُصلى في الجمعة؟", options: ["الجمعة", "العصر", "الظهر"], answer: 0 },
-            { question: "ما هو أكبر أركان الإسلام؟", options: ["الشهادة", "الصلاة", "الصوم"], answer: 0 },
-            { question: "ما هي المدينة التي هاجر إليها النبي محمد؟", options: ["مكة", "المدينة", "القدس"], answer: 0 },
-            { question: "من هو خاتم الأنبياء؟", options: ["محمد", "عيسى", "موسى"], answer: 0 },
-            { question: "ما هو اسم أول المسلمين؟", options: ["علي", "خديجة", "أبو بكر"], answer: 1 },
-            { question: "ما هو اسم ليلة القدر؟", options: ["ليلة 27", "ليلة 15", "ليلة 10"], answer: 0 },
-            { question: "من هو أول من أسلم من النساء؟", options: ["خديجة", "عائشة", "فاطمة"], answer: 0 },
-            { question: "ما هو عدد أيام الحج؟", options: ["5", "7", "10"], answer: 0 },
-        ];
+document.getElementById('start-quiz-btn').addEventListener('click', startQuiz);
 
-        let score = 0;
-        let currentQuestionIndex = 0;
+function startQuiz() {
+    document.getElementById('start-container').classList.add('hidden');
+    document.getElementById('quiz-container').classList.remove('hidden');
+    loadQuestion();
+}
 
-        document.getElementById("start-button").addEventListener("click", startQuiz);
+function loadQuestion() {
+    // اختيار سؤال عشوائي وتجنب التكرار
+    if (usedQuestions.length === questions.length) {
+        document.getElementById('question').textContent = "لقد أتممت جميع الأسئلة!";
+        return;
+    }
 
-        function startQuiz() {
-            document.querySelector(".container").classList.add("hidden");
-            document.getElementById("quiz-container").classList.remove("hidden");
-            currentQuestionIndex = 0;
-            score = 0;
+    let randomIndex;
+    do {
+        randomIndex = Math.floor(Math.random() * questions.length);
+    } while (usedQuestions.includes(randomIndex));
 
-            // خلط الأسئلة
-            shuffleArray(questions);
+    usedQuestions.push(randomIndex);
 
-            showQuestion();
-        }
+    const currentQuestion = questions[randomIndex];
+    document.getElementById('question').textContent = currentQuestion.question;
+    loadChoices(currentQuestion.choices, currentQuestion.answer);
+}
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+function loadChoices(choices, correctAnswer) {
+    const choicesContainer = document.getElementById('choices');
+    choicesContainer.innerHTML = ""; // مسح الاختيارات السابقة
 
-        function showQuestion() {
-            const currentQuestion = questions[currentQuestionIndex];
-            document.getElementById("question").textContent = currentQuestion.question;
-            const optionsDiv = document.getElementById("options");
-            optionsDiv.innerHTML = '';
+    choices.forEach(choice => {
+        const button = document.createElement('button');
+        button.textContent = choice;
+        button.addEventListener('click', () => handleAnswer(choice, correctAnswer, button)); // زر واحد فقط يمكن الضغط عليه
+        choicesContainer.appendChild(button);
+    });
+}
 
-            currentQuestion.options.forEach((option, index) => {
-                const button = document.createElement("button");
-                button.textContent = option;
-                button.addEventListener("click", () => selectAnswer(index));
-                optionsDiv.appendChild(button);
-            });
+function handleAnswer(selectedChoice, correctAnswer, button) {
+    const buttons = document.querySelectorAll('#choices button');
+    
+    // تعطيل جميع الأزرار بعد الضغط
+    buttons.forEach(btn => {
+        btn.disabled = true;
+    });
 
-            document.getElementById("feedback").textContent = '';
-        }
+    const feedback = document.getElementById('feedback');
+    if (selectedChoice === correctAnswer) {
+        feedback.textContent = "إجابتك صحيحة! حصلت على نقطة واحدة.";
+        score++;
+    } else {
+        feedback.textContent = "إجابتك خاطئة! تم خصم نقطة.";
+        score--;
+    }
 
-        function selectAnswer(selectedIndex) {
-            const currentQuestion = questions[currentQuestionIndex];
-            if (selectedIndex === currentQuestion.answer) {
-                score++;
-                document.getElementById("feedback").textContent = 'إجابتك صحيحة حصلت على نقطة واحدة';
-            } else {
-                score--;
-                document.getElementById("feedback").textContent = 'إجابتك خاطئة!';
-            }
-
-            document.getElementById("score-value").textContent = score;
-            currentQuestionIndex++;
-
-            if (currentQuestionIndex < questions.length) {
-                setTimeout(showQuestion, 5000);
-            } else {
-                endQuiz();
-            }
-        }
-
-        function endQuiz() {
-            document.getElementById("quiz-container").innerHTML = `<h2>انتهى التحدي!</h2><p>نقاطك النهائية: ${score}</p>`;
-        }
-    </script>
-</body>
-</html>
+    setTimeout(() => {
+        feedback.textContent = "";
+        loadQuestion();
+        buttons.forEach(btn => {
+            btn.disabled = false; // إعادة تفعيل الأزرار عند تحميل السؤال الجديد
+        });
+    }, 5000);
+}
