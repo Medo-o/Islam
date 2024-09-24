@@ -5,6 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحدي الأسئلة الدينية</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* إضافة بعض التنسيقات البسيطة */
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl; /* لتحديد اتجاه الكتابة */
+            text-align: center; /* توسيط النص */
+            background-color: #f4f4f4; /* لون الخلفية */
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .hidden {
+            display: none; /* إخفاء العناصر المخفية */
+        }
+        .quiz-box {
+            background-color: #fff; /* لون خلفية صندوق الأسئلة */
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 80%; /* عرض الصندوق */
+            max-width: 600px; /* أقصى عرض للصندوق */
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745; /* لون خلفية الأزرار */
+            color: #fff; /* لون النص */
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838; /* لون الخلفية عند التمرير */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -39,7 +75,7 @@
             { question: "ما هو عدد السجدات في القرآن الكريم؟", options: ["10", "15", "14"], answer: 2 },
             { question: "في أي عام هجري حدثت غزوة بدر؟", options: ["1 هـ", "2 هـ", "3 هـ"], answer: 1 },
             { question: "كم عدد ركعات صلاة الفجر؟", options: ["2", "4", "3"], answer: 0 },
-            { question: "ما هي المدينة التي هاجر إليها النبي محمد؟", options: ["مكة", "المدينة", "القدس"], answer: 0 },
+            { question: "ما هي المدينة التي هاجر إليها النبي محمد؟", options: ["مكة", "المدينة", "القدس"], answer: 1 }, // التصحيح هنا
             { question: "من هو خاتم الأنبياء؟", options: ["محمد", "عيسى", "موسى"], answer: 0 },
             { question: "ما هو اسم أول المسلمين؟", options: ["علي", "خديجة", "أبو بكر"], answer: 1 },
             { question: "من هو أول من أسلم من النساء؟", options: ["خديجة", "عائشة", "فاطمة"], answer: 0 },
@@ -119,3 +155,4 @@
     </script>
 </body>
 </html>
+
